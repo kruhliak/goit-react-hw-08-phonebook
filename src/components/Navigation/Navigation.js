@@ -20,6 +20,9 @@ function Navigation() {
   const isLogged = useSelector(getIsLogged);
   return (
     <nav>
+      <NavLink to="/" exact style={styles.link} activeStyle={styles.activeLink}>
+        Home
+      </NavLink>
       {isLogged && (
         <NavLink
           to="/contacts"
@@ -27,7 +30,7 @@ function Navigation() {
           style={styles.link}
           activeStyle={styles.activeLink}
         >
-          Контакты
+          Contacts
         </NavLink>
       )}
     </nav>

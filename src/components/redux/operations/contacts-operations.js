@@ -14,7 +14,7 @@ export const fetchContactsList = createAsyncThunk(
       return response;
     } catch (error) {
       displayToastError(error.message);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   },
 );
@@ -28,7 +28,7 @@ export const createItem = createAsyncThunk(
       return response;
     } catch (error) {
       displayToastError(error.message);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   },
 );
@@ -41,7 +41,7 @@ export const deleteItem = createAsyncThunk(
       return id;
     } catch (error) {
       displayToastError(error.message);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   },
 );

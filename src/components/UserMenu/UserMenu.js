@@ -22,10 +22,10 @@ export default function UserMenu() {
 
   return (
     <div style={styles.container}>
-      <span style={styles.name}>Добро пожаловать, {name}</span>
+      <span style={styles.name}>Hello, {name}</span>
 
       <button type="button" onClick={() => dispatch(userLogout())}>
-        Выйти
+        SIGN OUT
       </button>
     </div>
   );

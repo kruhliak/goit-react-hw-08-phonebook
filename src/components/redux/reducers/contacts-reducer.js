@@ -1,5 +1,3 @@
-// import { combineReducers } from 'redux';
-
 import { createSlice } from '@reduxjs/toolkit';
 import {
   fetchContactsList,
@@ -19,33 +17,32 @@ const itemsSlice = createSlice({
   name: 'contacts',
   initialState,
   extraReducers: {
-    [fetchContactsList.fulfilled](state, action) {
-      state.items = action.payload;
+    [fetchContactsList.fulfilled](state, { payload }) {
+      state.items = payload;
       state.isLoading = false;
     },
     [fetchContactsList.pending](state) {
       state.isLoading = true;
       state.error = null;
     },
-    [fetchContactsList.rejected](state, action) {
+    [fetchContactsList.rejected](state, { payload }) {
       state.isLoading = false;
-      state.error = action.payload;
+      state.error = payload;
     },
-    [createItem.fulfilled](state, action) {
-      state.items = [...state.items, action.payload];
+    [createItem.fulfilled](state, { payload }) {
+      state.items = [...state.items, payload];
     },
     [createItem.pending](state) {
       state.error = null;
     },
-    [createItem.rejected](state, action) {
-      state.error = action.payload;
+    [createItem.rejected](state, { payload }) {
+      state.error = payload;
     },
-    [deleteItem.fulfilled](state, action) {
-      console.log(action.payload);
-      state.items.filter(({ id }) => id !== action.payload);
+    [deleteItem.fulfilled](state, { payload }) {
+      state.items = [...state.items.filter(({ id }) => id !== payload)];
     },
-    [deleteItem.rejected](state, action) {
-      state.error = action.payload;
+    [deleteItem.rejected](state, { payload }) {
+      state.error = payload;
     },
     [deleteItem.pending](state) {
       state.error = null;

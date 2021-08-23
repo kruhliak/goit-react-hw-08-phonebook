@@ -71,7 +71,7 @@ export default function ContactForm() {
             autoComplete="off"
           />
         </label>
-        <button type="submit">Add contact</button>
+        <button type="submit">ADD CONTACT</button>
       </Form>
     </div>
   );

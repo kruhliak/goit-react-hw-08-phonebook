@@ -5,7 +5,7 @@ import * as userAPI from 'components/services/userAPI';
 
 const displayToastError = e => toast.error(`${e}`);
 
-// const displayToastSuccess = message => toast.success(`${message}`);
+const displayToastSuccess = message => toast.success(`${message}`);
 
 const token = {
   set(token) {
@@ -22,10 +22,11 @@ export const userRegister = createAsyncThunk(
     try {
       const response = await userAPI.userSignup(user);
       token.set(response.token);
+      console.log('response', response);
       return response;
     } catch (error) {
       displayToastError(error.message);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   },
 );
@@ -36,10 +37,11 @@ export const userLogin = createAsyncThunk(
     try {
       const response = await userAPI.userLogin(user);
       token.set(response.token);
+      displayToastSuccess('Hello');
       return response;
     } catch (error) {
       displayToastError(error.message);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   },
 );
@@ -53,28 +55,28 @@ export const userLogout = createAsyncThunk(
       return response;
     } catch (error) {
       displayToastError(error.message);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   },
 );
 
-// export const fetchUser = createAsyncThunk(
-//   'auth/refresh',
-//   async (_, thunkAPI) => {
-//     const state = thunkAPI.getState();
-//     const persistedToken = state.auth.token;
+export const fetchUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
 
-//     if (persistedToken === null) {
-//       return;
-//     }
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
+    }
 
-//     token.set(persistedToken);
-//     try {
-//       const { data } = await axios.get('/users/current');
-//       return data;
-//     } catch (error) {
-//       displayToastError(error.message);
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   },
-// );
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.get('/users/current');
+      return data;
+    } catch (error) {
+      displayToastError(error.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);

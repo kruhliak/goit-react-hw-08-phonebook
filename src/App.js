@@ -1,50 +1,83 @@
-// import { useDispatch } from 'react-redux';
-// import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import RegisterPage from './components/views/RegisterPage';
-import ContactsPage from 'components/views/ContactsPage';
-import LoginPage from 'components/views/LoginPage';
-import NotFoundPage from 'components/views/NotFoundPage';
-import AppBar from 'components/AppBar/AppBar';
-// import { fetchUser } from 'components/redux/operations/auth-operation';
+import { fetchUser } from 'components/redux/operations/auth-operation';
+import Loader from 'components/Loader/Loader';
+import PrivateRoute from 'components/PrivateRoute';
+import PublicRoute from 'components/PublicRoute';
+import { getIsLoading } from 'components/redux/selectors/auth-selectors';
+
+const HomePage = lazy(() =>
+  import('components/views/HomePage' /* webpackChunkName: "home-page" */),
+);
+const NotFoundPage = lazy(() =>
+  import(
+    'components/views/NotFoundPage' /* webpackChunkName: "not-found-page" */
+  ),
+);
+const AppBar = lazy(() =>
+  import('components/AppBar/AppBar' /* webpackChunkName: "app-bar" */),
+);
+const RegisterPage = lazy(() =>
+  import(
+    'components/views/RegisterPage' /* webpackChunkName: "register-page" */
+  ),
+);
+const ContactsPage = lazy(() =>
+  import(
+    'components/views/ContactsPage' /* webpackChunkName: "contacts-page" */
+  ),
+);
+const LoginPage = lazy(() =>
+  import('components/views/LoginPage' /* webpackChunkName: "login-page" */),
+);
 
 export default function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchUser());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
+  const isLoading = useSelector(getIsLoading);
 
   return (
-    <div id="container">
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <AppBar />
-      <Switch>
-        <Route path="/register">
-          <RegisterPage />
-        </Route>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/contacts">
-          <ContactsPage />
-        </Route>
-        <Route>
-          <NotFoundPage />
-        </Route>
-      </Switch>
-    </div>
+    !isLoading && (
+      <div id="container">
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <Suspense fallback={<Loader />}>
+          <AppBar />
+          <Switch>
+            <PublicRoute exact path="/">
+              <HomePage />
+            </PublicRoute>
+            <PublicRoute path="/register" restricted>
+              <RegisterPage />
+            </PublicRoute>
+            <PublicRoute path="/login" restricted redirectTo="/contacts">
+              <LoginPage />
+            </PublicRoute>
+            <PrivateRoute path="/contacts" redirectTo="/login">
+              <ContactsPage />
+            </PrivateRoute>
+            <Route>
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </Suspense>
+      </div>
+    )
   );
 }

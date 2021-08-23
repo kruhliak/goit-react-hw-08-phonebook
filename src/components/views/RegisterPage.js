@@ -45,16 +45,14 @@ export default function RegisterPage() {
 
   return (
     <div>
-      <h1>Страница регистрации</h1>
-
       <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
         <label style={styles.label}>
-          Имя
+          Name
           <input type="text" name="name" value={name} onChange={handleChange} />
         </label>
 
         <label style={styles.label}>
-          Почта
+          Email
           <input
             type="email"
             name="email"
@@ -64,7 +62,7 @@ export default function RegisterPage() {
         </label>
 
         <label style={styles.label}>
-          Пароль
+          Password
           <input
             type="password"
             name="password"
@@ -73,7 +71,7 @@ export default function RegisterPage() {
           />
         </label>
 
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit">CREATE ACCOUNT</button>
       </form>
     </div>
   );

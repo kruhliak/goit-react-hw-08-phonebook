@@ -3,7 +3,7 @@ import {
   userRegister,
   userLogin,
   userLogout,
-  // fetchUser,
+  fetchUser,
 } from '../operations/auth-operation';
 
 const initialState = {
@@ -60,19 +60,19 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    // [fetchUser.fulfilled](state, action) {
-    //   state.user = action.payload;
-    //   state.isLoading = false;
-    //   state.isLogged = true;
-    // },
-    // [fetchUser.pending](state) {
-    //   state.isLoading = true;
-    //   state.error = null;
-    // },
-    // [fetchUser.rejected](state, action) {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
+    [fetchUser.fulfilled](state, action) {
+      state.user = action.payload;
+      state.isLoading = false;
+      state.isLogged = true;
+    },
+    [fetchUser.pending](state) {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [fetchUser.rejected](state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 

@@ -38,11 +38,9 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h1>Страница логина</h1>
-
       <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
         <label style={styles.label}>
-          Почта
+          Email
           <input
             type="email"
             name="email"
@@ -52,7 +50,7 @@ export default function LoginPage() {
         </label>
 
         <label style={styles.label}>
-          Пароль
+          Password
           <input
             type="password"
             name="password"
@@ -61,7 +59,7 @@ export default function LoginPage() {
           />
         </label>
 
-        <button type="submit">Войти</button>
+        <button type="submit">LOG IN</button>
       </form>
     </div>
   );

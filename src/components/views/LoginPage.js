@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userLogin } from 'components/redux/operations/auth-operation';
+import { StyledButton } from 'components/StyledComponent.styles';
 
 const styles = {
   form: {
@@ -59,7 +60,9 @@ export default function LoginPage() {
           />
         </label>
 
-        <button type="submit">LOG IN</button>
+        <StyledButton variant="success" size="sm" type="submit">
+          LOG IN
+        </StyledButton>
       </form>
     </div>
   );

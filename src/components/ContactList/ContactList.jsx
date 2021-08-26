@@ -11,6 +11,7 @@ import {
   fetchContactsList,
   deleteItem,
 } from '../redux/operations/contacts-operations';
+import { StyledButton } from 'components/StyledComponent.styles';
 
 function ContactList() {
   const dispatch = useDispatch();
@@ -28,9 +29,14 @@ function ContactList() {
         {contacts.map(contact => (
           <li key={contact.id}>
             {contact.name}: {contact.number}
-            <button type="button" onClick={() => onDeleteContacts(contact.id)}>
-              <AiFillDelete size="20" />
-            </button>
+            <StyledButton
+              variant="danger"
+              size="sm"
+              type="button"
+              onClick={() => onDeleteContacts(contact.id)}
+            >
+              <AiFillDelete fill="black" size="20" />
+            </StyledButton>
           </li>
         ))}
       </List>

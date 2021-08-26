@@ -13,14 +13,7 @@ export const List = styled.ul`
     justify-content: space-between;
     border-bottom: 1px solid grey;
     & button {
-      background-color: #f0c8c8;
       border: 1px solid #000;
-      border-radius: 4px;
-      &:hover,
-      :focus {
-        background-color: #f09797;
-        transform: scale(1.05);
-      }
     }
   }
 `;

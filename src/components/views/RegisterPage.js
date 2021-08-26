@@ -1,9 +1,7 @@
-// export default function RegisterPage() {
-//   return <p>Hello i'm register</p>;
-// }
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userRegister } from 'components/redux/operations/auth-operation';
+import { StyledButton } from 'components/StyledComponent.styles';
 
 const styles = {
   form: {
@@ -71,7 +69,9 @@ export default function RegisterPage() {
           />
         </label>
 
-        <button type="submit">CREATE ACCOUNT</button>
+        <StyledButton variant="success" size="sm" type="submit">
+          CREATE ACCOUNT
+        </StyledButton>
       </form>
     </div>
   );

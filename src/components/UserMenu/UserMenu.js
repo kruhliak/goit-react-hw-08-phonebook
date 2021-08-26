@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserName } from 'components/redux/selectors/auth-selectors';
 import { userLogout } from 'components/redux/operations/auth-operation';
+import { StyledButton } from 'components/StyledComponent.styles';
 
 const styles = {
   container: {
@@ -24,9 +25,14 @@ export default function UserMenu() {
     <div style={styles.container}>
       <span style={styles.name}>Hello, {name}</span>
 
-      <button type="button" onClick={() => dispatch(userLogout())}>
+      <StyledButton
+        variant="danger"
+        size="sm"
+        type="submit"
+        onClick={() => dispatch(userLogout())}
+      >
         SIGN OUT
-      </button>
+      </StyledButton>
     </div>
   );
 }

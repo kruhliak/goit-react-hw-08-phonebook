@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form } from './ContactForm.styles';
 import { getContacts } from '../redux/selectors/contacts-selectors';
 import { createItem } from '../redux/operations/contacts-operations';
+import { StyledButton } from 'components/StyledComponent.styles';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -71,7 +72,9 @@ export default function ContactForm() {
             autoComplete="off"
           />
         </label>
-        <button type="submit">ADD CONTACT</button>
+        <StyledButton variant="success" size="sm" type="submit">
+          ADD CONTACT
+        </StyledButton>
       </Form>
     </div>
   );

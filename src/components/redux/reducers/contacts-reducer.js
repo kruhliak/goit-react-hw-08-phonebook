@@ -47,7 +47,9 @@ const itemsSlice = createSlice({
     [deleteItem.pending](state) {
       state.error = null;
     },
-    [changeFilter]: (state, { payload }) => (state.filter = payload),
+    [changeFilter]: (state, { payload }) => {
+      state.filter = payload;
+    },
   },
 });
 

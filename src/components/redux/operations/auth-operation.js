@@ -5,8 +5,6 @@ import * as userAPI from 'components/services/userAPI';
 
 const displayToastError = e => toast.error(`${e}`);
 
-const displayToastSuccess = message => toast.success(`${message}`);
-
 const token = {
   set(token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -37,7 +35,6 @@ export const userLogin = createAsyncThunk(
     try {
       const response = await userAPI.userLogin(user);
       token.set(response.token);
-      displayToastSuccess('Hello');
       return response;
     } catch (error) {
       displayToastError(error.message);

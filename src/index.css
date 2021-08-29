@@ -53,6 +53,7 @@ h6 {
 
 #container {
   display: flex;
+  min-width: 320px;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -6,7 +6,7 @@ import {
   getVisibleContacts,
   getStatusLoader,
 } from '../redux/selectors/contacts-selectors';
-import Fallback from '../Loader/Loader';
+import { Spinner } from 'react-bootstrap';
 import {
   fetchContactsList,
   deleteItem,
@@ -24,7 +24,9 @@ function ContactList() {
 
   return (
     <>
-      {loading && <Fallback />}
+      {loading && (
+        <Spinner animation="border" role="status" variant="primary" />
+      )}
       <List>
         {contacts.map(contact => (
           <li key={contact.id}>

@@ -1,7 +1,7 @@
 export default function HomePage() {
   return (
     <div>
-      <h1>Phonebook</h1>
+      <p>Use the Phonebook to save your contacts</p>
     </div>
   );
 }

@@ -4,10 +4,10 @@ import { Switch, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchUser } from 'components/redux/operations/auth-operation';
-import Loader from 'components/Loader/Loader';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 import { getIsLoading } from 'components/redux/selectors/auth-selectors';
+import { Spinner } from 'react-bootstrap';
 
 const HomePage = lazy(() =>
   import('components/views/HomePage' /* webpackChunkName: "home-page" */),
@@ -46,19 +46,20 @@ export default function App() {
   return (
     !isLoading && (
       <div id="container">
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Spinner animation="border" role="status" />}>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           <AppBar />
+
           <Switch>
             <PublicRoute exact path="/">
               <HomePage />

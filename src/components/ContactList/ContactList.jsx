@@ -1,48 +1,22 @@
-import { useEffect } from 'react';
 import { List } from './ContactList.styles';
-import { AiFillDelete } from 'react-icons/ai';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getVisibleContacts,
-  getStatusLoader,
-} from '../redux/selectors/contacts-selectors';
-import { Spinner } from 'react-bootstrap';
-import {
-  fetchContactsList,
-  deleteItem,
-} from '../redux/operations/contacts-operations';
-import { StyledButton } from 'components/StyledComponent.styles';
+import { getVisibleContacts } from '../redux/selectors/contacts-selectors';
+import { fetchContactsList } from '../redux/operations/contacts-operations';
+
+import ContactItem from 'components/ContactItem/ContactItem';
 
 function ContactList() {
   const dispatch = useDispatch();
   const contacts = useSelector(getVisibleContacts);
-  const loading = useSelector(getStatusLoader);
-
-  const onDeleteContacts = id => dispatch(deleteItem(id));
-
   useEffect(() => dispatch(fetchContactsList()), [dispatch]);
 
   return (
-    <>
-      {loading && (
-        <Spinner animation="border" role="status" variant="primary" />
-      )}
-      <List>
-        {contacts.map(contact => (
-          <li key={contact.id}>
-            {contact.name}: {contact.number}
-            <StyledButton
-              variant="danger"
-              size="sm"
-              type="button"
-              onClick={() => onDeleteContacts(contact.id)}
-            >
-              <AiFillDelete fill="black" size="20" />
-            </StyledButton>
-          </li>
-        ))}
-      </List>
-    </>
+    <List>
+      {contacts.map(contact => (
+        <ContactItem key={contact.id} {...contact} />
+      ))}
+    </List>
   );
 }
 
